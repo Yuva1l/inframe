@@ -1,0 +1,32 @@
+# media never goes into git (clips stay on your machine)
+*.mov
+*.MOV
+*.mp4
+*.MP4
+*.m4v
+*.mkv
+*.ogv
+*.webm
+*.jpg
+*.png
+*.npz
+out/
+.venv/
+__pycache__/
+*.mlpackage/
+*.mlmodel
+*.onnx
+*.safetensors
+*.pt
+*.pth
+.DS_Store
+
+# run logs and work folders (bench timings, downloaded audio)
+.v0_logs/
+.logs/
+
+# T9a review UI
+node_modules/
+web/node_modules/
+web/pages-dist/
+.wrangler/

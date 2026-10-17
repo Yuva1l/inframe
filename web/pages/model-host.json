@@ -1,0 +1,4 @@
+{
+  "base": "https://huggingface.co/itsUV/inframe-models/resolve/2344e3ea95c823f423763a8c1e1ebd920a662926/",
+  "connect": ["https://huggingface.co/itsUV/inframe-models/resolve/2344e3ea95c823f423763a8c1e1ebd920a662926/", "https://*.cdn.hf.co", "https://cas-bridge.xethub.hf.co"]
+}

@@ -1,0 +1,32 @@
+inframe browser models
+
+This repository holds the three files the inframe web page downloads to run in the browser. They are converted
+or copied, not trained here. Each keeps the license of its origin; the license texts are LICENSE-APACHE and
+LICENSE-MIT in this repository, and THIRD_PARTY_NOTICES holds the notices of the libraries inside the .wasm file.
+
+rfdetr_small_v1.onnx
+  RF-DETR small (COCO checkpoint), exported to ONNX with rfdetr 1.5.2.
+  Copyright Roboflow, Inc. Apache License 2.0 (LICENSE-APACHE).
+  Source: https://github.com/roboflow/rf-detr
+  RF-DETR builds on LW-DETR, Deformable DETR, Conditional DETR and DINOv2 code and weights, which carry
+  their own notices under the Apache License 2.0 in the source repository.
+
+dinov2_s_v1.onnx
+  DINOv2 small (facebook/dinov2-small), exported to ONNX (pooler_output, opset 17).
+  Copyright Meta Platforms, Inc. and affiliates. Apache License 2.0 (LICENSE-APACHE).
+  Source: https://huggingface.co/facebook/dinov2-small
+
+ort-wasm-simd-threaded.asyncify.wasm
+  ONNX Runtime Web 1.30.0 WebAssembly runtime (WebGPU build), unchanged.
+  Copyright (c) Microsoft Corporation. MIT License (LICENSE-MIT) for the ONNX Runtime and MLAS code.
+  The file is a statically linked binary and also contains third-party code, each under its own license:
+    protobuf (Copyright 2008 Google Inc.)                    BSD-3-Clause
+    abseil-cpp (Google)                                      Apache License 2.0 (LICENSE-APACHE)
+    onnx (Copyright Facebook, Inc. and Microsoft Corporation) Apache License 2.0 (LICENSE-APACHE)
+    Eigen                                                    MPL-2.0
+    and smaller parts of nlohmann json (MIT), SafeInt (MIT), flatbuffers (Apache-2.0), re2 (BSD-3-Clause), XNNPACK (BSD-3-Clause).
+  Their copyright notices and license texts are in THIRD_PARTY_NOTICES, which must be kept with the file.
+  Source: https://www.npmjs.com/package/onnxruntime-web (code: https://github.com/microsoft/onnxruntime)
+
+Changes: the two .onnx files are format conversions of the upstream weights (no retraining, fp32). The
+.wasm file is the upstream file, byte for byte. manifest.json lists the size and sha256 of each file.

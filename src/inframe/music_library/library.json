@@ -1,0 +1,266 @@
+{
+ "schema": 1,
+ "total_bytes": 24958446,
+ "songs": [
+  {
+   "id": "c98173a3-e78c-44e3-8558-0595f4b4898d",
+   "title": "Data Collaborate - Marah (Chill-Out Mix)",
+   "artist": "Data Collaborate",
+   "artist_url": "https://www.jamendo.com/artist/360866/Data_Collaborate",
+   "license": "by",
+   "license_version": "3.0",
+   "license_url": "https://creativecommons.org/licenses/by/3.0/",
+   "source_url": "https://www.jamendo.com/track/775711",
+   "source": "jamendo",
+   "duration_s": 214.0,
+   "bpm": 88.0,
+   "lufs": -16.8,
+   "moods": [
+    "chill"
+   ],
+   "tags": [
+    "instrumental"
+   ],
+   "genres": [],
+   "sha256": "3ca1a397b4ec9f0fe2a7516dad959faa335ede64407f751e6c551ced1dff4287",
+   "bytes": 4361854,
+   "file": "c98173a3-e78c-44e3-8558-0595f4b4898d.m4a",
+   "transcoded": true,
+   "cover_removed": false,
+   "original_bytes": 4699644
+  },
+  {
+   "id": "6b368854-60e7-4e1c-b9bd-9e0ce84da18d",
+   "title": "Time to Funk Guitar JFeel POP ROCK",
+   "artist": "JFeel",
+   "artist_url": "https://www.jamendo.com/artist/427205/JFeel",
+   "license": "by",
+   "license_version": "3.0",
+   "license_url": "https://creativecommons.org/licenses/by/3.0/",
+   "source_url": "https://www.jamendo.com/track/979160",
+   "source": "jamendo",
+   "duration_s": 124.1,
+   "bpm": 99.4,
+   "lufs": -14.1,
+   "moods": [
+    "funk"
+   ],
+   "tags": [
+    "instrumental",
+    "speed_medium"
+   ],
+   "genres": [],
+   "sha256": "6ea76c8659ef95ec13af3712455397d29bd3184de7a386470683edbe52b7f0d1",
+   "bytes": 2569575,
+   "file": "6b368854-60e7-4e1c-b9bd-9e0ce84da18d.m4a",
+   "transcoded": true,
+   "cover_removed": false,
+   "original_bytes": 3091474
+  },
+  {
+   "id": "8217e1c7-6a8c-4c59-9c9f-82fe9b760322",
+   "title": "Antigone et Créon",
+   "artist": "Ehma",
+   "artist_url": "https://www.jamendo.com/artist/18/ehma",
+   "license": "by",
+   "license_version": "3.0",
+   "license_url": "https://creativecommons.org/licenses/by/3.0/",
+   "source_url": "https://www.jamendo.com/track/1687319",
+   "source": "jamendo",
+   "duration_s": 160.7,
+   "bpm": 99.4,
+   "lufs": -18.1,
+   "moods": [
+    "cinematic"
+   ],
+   "tags": [
+    "cinematic",
+    "emotional",
+    "instrumental",
+    "neutral",
+    "piano",
+    "speed_high",
+    "strings"
+   ],
+   "genres": [
+    "classical",
+    "neoclassical"
+   ],
+   "sha256": "2ac53e92847d18e6b3c46391ce9a6b35a2e4b871d2d675e311915ffcb5c2fecb",
+   "bytes": 3112940,
+   "file": "8217e1c7-6a8c-4c59-9c9f-82fe9b760322.mp3",
+   "transcoded": false,
+   "cover_removed": true,
+   "original_bytes": null
+  },
+  {
+   "id": "3b4580e1-1454-4b4c-a03a-e03bf4af0849",
+   "title": "Upbeat Corporate",
+   "artist": "Soundrider/Dope",
+   "artist_url": "https://www.jamendo.com/artist/520047/DOPE_Music",
+   "license": "by",
+   "license_version": "3.0",
+   "license_url": "https://creativecommons.org/licenses/by/3.0/",
+   "source_url": "https://www.jamendo.com/track/1670486",
+   "source": "jamendo",
+   "duration_s": 100.0,
+   "bpm": 120.2,
+   "lufs": -12.7,
+   "moods": [
+    "upbeat"
+   ],
+   "tags": [
+    "atmospheric",
+    "commercial",
+    "instrumental",
+    "speed_high"
+   ],
+   "genres": [
+    "corporate",
+    "indie"
+   ],
+   "sha256": "62aaaa09af3868f6801fe59825cc07b721afdd9d1a119b56849b687e790e45a0",
+   "bytes": 2084674,
+   "file": "3b4580e1-1454-4b4c-a03a-e03bf4af0849.m4a",
+   "transcoded": true,
+   "cover_removed": false,
+   "original_bytes": 2402712
+  },
+  {
+   "id": "56d6eea0-f785-486f-b5a0-96f81f803482",
+   "title": "Higher - Funk version (feat. Dia Yiannopoulou)",
+   "artist": "zero-project",
+   "artist_url": "https://www.jamendo.com/artist/340121/zero-project",
+   "license": "by",
+   "license_version": "3.0",
+   "license_url": "https://creativecommons.org/licenses/by/3.0/",
+   "source_url": "https://www.jamendo.com/track/1653924",
+   "source": "jamendo",
+   "duration_s": 150.8,
+   "bpm": 120.2,
+   "lufs": -11.2,
+   "moods": [
+    "funk"
+   ],
+   "tags": [
+    "advertising",
+    "claps",
+    "electricguitar",
+    "female",
+    "happy",
+    "holiday",
+    "speed_high",
+    "vocal"
+   ],
+   "genres": [
+    "funk",
+    "pop"
+   ],
+   "sha256": "9bc0b841d36101b4eeb5a9fd1fb762d70f16b32cb3a66185b695d56956bc8585",
+   "bytes": 3117644,
+   "file": "56d6eea0-f785-486f-b5a0-96f81f803482.m4a",
+   "transcoded": true,
+   "cover_removed": false,
+   "original_bytes": 3764181
+  },
+  {
+   "id": "031b2262-fb12-4742-b412-6d1c0cc63d0c",
+   "title": "The Corporate Upbeat",
+   "artist": "Soundrider/Dope",
+   "artist_url": "https://www.jamendo.com/artist/520047/DOPE_Music",
+   "license": "by",
+   "license_version": "3.0",
+   "license_url": "https://creativecommons.org/licenses/by/3.0/",
+   "source_url": "https://www.jamendo.com/track/1670594",
+   "source": "jamendo",
+   "duration_s": 121.9,
+   "bpm": 130.0,
+   "lufs": -8.5,
+   "moods": [
+    "upbeat"
+   ],
+   "tags": [
+    "commercial",
+    "instrumental",
+    "soft",
+    "speed_high",
+    "strings",
+    "upbeat"
+   ],
+   "genres": [
+    "corporate",
+    "filmscore"
+   ],
+   "sha256": "43a4a1c05a5ba6e2d74e812d7184498165a706f85c74b3c9ebcbfdedd2af47f8",
+   "bytes": 2576524,
+   "file": "031b2262-fb12-4742-b412-6d1c0cc63d0c.m4a",
+   "transcoded": true,
+   "cover_removed": false,
+   "original_bytes": 2927460
+  },
+  {
+   "id": "9e753e56-aadf-4fe7-8c43-aa203d122af9",
+   "title": "Deep Study of a Calm Mind",
+   "artist": "KonstantinPazuzuStudio",
+   "artist_url": "https://www.jamendo.com/artist/604385/KonstantinPazuzuStudio",
+   "license": "by",
+   "license_version": "3.0",
+   "license_url": "https://creativecommons.org/licenses/by/3.0/",
+   "source_url": "https://www.jamendo.com/track/2326401",
+   "source": "jamendo",
+   "duration_s": 190.8,
+   "bpm": 142.6,
+   "lufs": -21.2,
+   "moods": [
+    "calm"
+   ],
+   "tags": [
+    "instrumental",
+    "neutral",
+    "peaceful",
+    "piano",
+    "soft",
+    "speed_low",
+    "strings"
+   ],
+   "genres": [
+    "ambient"
+   ],
+   "sha256": "a36f52aee6e4234c917c87b249d9365e66c1644d82e728c7b5880d281cb1637d",
+   "bytes": 3922238,
+   "file": "9e753e56-aadf-4fe7-8c43-aa203d122af9.m4a",
+   "transcoded": true,
+   "cover_removed": false,
+   "original_bytes": 4582096
+  },
+  {
+   "id": "d7c3c83c-7e33-401b-9b6d-a6a41a2c4976",
+   "title": "Rosmarinus(electronic vocal)",
+   "artist": "Omega+",
+   "artist_url": "https://www.jamendo.com/artist/437945/Omega+",
+   "license": "by",
+   "license_version": "3.0",
+   "license_url": "https://creativecommons.org/licenses/by/3.0/",
+   "source_url": "https://www.jamendo.com/track/1065726",
+   "source": "jamendo",
+   "duration_s": 158.4,
+   "bpm": 160.2,
+   "lufs": -7.3,
+   "moods": [
+    "electronic"
+   ],
+   "tags": [
+    "male",
+    "speed_low",
+    "vocal"
+   ],
+   "genres": [],
+   "sha256": "ebfc2e840cd9f29b00ca471bc83febd6a685cbd8a89eacac2d718f169e02837a",
+   "bytes": 3212997,
+   "file": "d7c3c83c-7e33-401b-9b6d-a6a41a2c4976.m4a",
+   "transcoded": true,
+   "cover_removed": false,
+   "original_bytes": 3910997
+  }
+ ]
+}

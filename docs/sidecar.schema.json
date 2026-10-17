@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/OWNER/inframe/docs/sidecar.schema.json",
+  "title": "inframe clip sidecar, schema_version 1.x",
+  "description": "<clip stem>.inframe.json, written next to every clip by `inframe cut`. A reader must refuse a schema_version whose major number it does not know and may ignore unknown fields (minor versions only add optional ones). Boxes are normalised xyxy in the upright display frame (rotation and mirror applied), origin top-left. source_time is the file's own timeline in seconds (the one ffmpeg -ss counts), slow motion not divided out; clip_time = source_time - clip.copy_start_s. A retimed clip (slowmo block) plays clip_time * slowmo.factor seconds.",
+  "type": "object",
+  "required": ["schema_version", "inframe_version", "source", "clip", "try_number", "tries_total", "video", "time_base",
+               "coordinate_frame", "target", "embedder", "detector", "sampling", "presence_in_clip", "track_ids", "samples"],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.[0-9]+$", "description": "major.minor; this schema covers major 1" },
+    "inframe_version": { "type": "string" },
+    "source": {
+      "type": "object",
+      "required": ["path", "hash", "duration_s"],
+      "properties": {
+        "path": { "type": "string", "description": "Path of the source video as given to inframe cut" },
+        "hash": {
+          "type": "object",
+          "required": ["algorithm", "value", "size_bytes"],
+          "properties": {
+            "algorithm": { "const": "sha256" },
+            "value": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+            "size_bytes": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "duration_s": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "clip": {
+      "type": "object",
+      "required": ["file", "in_source_s", "out_source_s", "copy_start_s", "duration_s"],
+      "properties": {
+        "file": { "type": "string", "description": "Clip file name, in the same folder" },
+        "in_source_s": { "type": "number", "minimum": 0, "description": "Requested start (padded stretch) in source time" },
+        "out_source_s": { "type": "number", "minimum": 0, "description": "End in source time" },
+        "copy_start_s": { "type": "number", "minimum": 0, "description": "Where the stream copy really starts, measured on the cut (usually the keyframe at or before in_source_s; in an open-GOP iPhone file it can be one GOP earlier). Clip time 0 is here." },
+        "duration_s": { "type": "number", "exclusiveMinimum": 0, "description": "Duration of the clip file's video stream as written (ffprobe), about out_source_s - copy_start_s plus up to three frames; out_source_s - copy_start_s when the file could not be measured. In a clip retimed with --slowmo it is out_source_s - copy_start_s in source seconds (the played length is slowmo.played_duration_s)." }
+      }
+    },
+    "try_number": { "type": "integer", "minimum": 1, "description": "1-based index of this clip in the run (time order)" },
+    "tries_total": { "type": "integer", "minimum": 1 },
+    "video": {
+      "type": "object",
+      "required": ["fps", "rotation", "mirrored", "stored_width", "stored_height", "display_width", "display_height"],
+      "properties": {
+        "fps": { "type": "number", "minimum": 0 },
+        "rotation": { "type": "integer", "description": "Degrees as ffprobe reports the display matrix: counterclockwise angle a player turns the stored frame by" },
+        "mirrored": { "type": "boolean", "description": "The display matrix also flips the picture (applied after the rotation)" },
+        "stored_width": { "type": "integer", "minimum": 1 },
+        "stored_height": { "type": "integer", "minimum": 1 },
+        "display_width": { "type": "integer", "minimum": 1 },
+        "display_height": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "time_base": { "type": "string", "description": "Plain-language statement of the source/clip time relation" },
+    "coordinate_frame": {
+      "type": "object",
+      "required": ["box_format", "units", "origin", "x_axis", "y_axis"],
+      "properties": {
+        "description": { "type": "string" },
+        "box_format": { "const": "xyxy" },
+        "units": { "const": "normalized" },
+        "origin": { "const": "top-left" },
+        "x_axis": { "const": "right" },
+        "y_axis": { "const": "down" },
+        "scale_to_pixels": { "type": "string" }
+      }
+    },
+    "target": {
+      "type": "object",
+      "required": ["name"],
+      "properties": { "name": { "type": "string", "description": "any-person, any-motion, or a saved target's name" } }
+    },
+    "embedder": { "type": ["string", "null"], "description": "Model that matched the target's appearance (for example dinov2-small); null when the target needs no identity" },
+    "detector": {
+      "type": "object",
+      "required": ["mode"],
+      "properties": {
+        "mode": { "enum": ["detect", "motion"] },
+        "backend": { "type": ["string", "null"] },
+        "model": { "type": ["string", "null"] },
+        "tracker": { "type": ["string", "null"], "description": "ocsort or botsort when a tracker ran, else null" }
+      }
+    },
+    "score": {
+      "type": "object",
+      "required": ["kind", "enter", "exit"],
+      "description": "What `confidence` means in this run and the thresholds that decided presence (added in 1.1). Read presence as confidence >= enter, never as a fixed number: motion scores are a foreground-area fraction near 0.001-0.1",
+      "properties": {
+        "kind": { "enum": ["detector_confidence", "motion_foreground_fraction", "unknown"], "description": "detector_confidence: the detector's 0..1 score of the target; motion_foreground_fraction: the share of the frame that moved" },
+        "enter": { "type": ["number", "null"], "description": "Score at or above which the target counts as in frame" },
+        "exit": { "type": ["number", "null"], "description": "Score below which a stretch in frame ends" },
+        "presence": { "type": "string" }
+      }
+    },
+    "slowmo": {
+      "type": "object",
+      "required": ["factor", "played_duration_s"],
+      "description": "Present only when the clip was retimed with --slowmo (added in 1.2). clip_time and source_time stay in source seconds; a player shows clip_time * factor seconds.",
+      "properties": {
+        "factor": { "type": "number", "exclusiveMinimum": 1 },
+        "played_duration_s": { "type": "number", "exclusiveMinimum": 0, "description": "Duration of the retimed clip file, measured with ffprobe" },
+        "rule": { "type": "string" }
+      }
+    },
+    "sound": {
+      "type": "object",
+      "required": ["impacts", "confidence", "markers"],
+      "description": "Sound cues (added in 1.2; present when the run was made with --sound or --markers). impacts counts the pops and landings inside the clip; confidence is the clip's peak detector score raised by 0.2 (capped at 1) when impacts > 0; snapped_from holds the old edges (source seconds) when --sound snap moved them; markers (--markers clap) are the impacts in source time and clip time.",
+      "properties": {
+        "impacts": { "type": "integer", "minimum": 0 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "confidence_note": { "type": "string" },
+        "snapped_from": { "type": ["object", "null"], "properties": { "start": { "type": "number" }, "end": { "type": "number" } } },
+        "markers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kind", "source_time", "clip_time", "strength"],
+            "properties": { "kind": { "const": "clap" }, "source_time": { "type": "number" }, "clip_time": { "type": "number" }, "strength": { "type": "number" } }
+          }
+        }
+      }
+    },
+    "sampling": {
+      "type": "object",
+      "required": ["fps", "n_samples"],
+      "properties": {
+        "fps": { "type": ["number", "string"], "description": "Samples per second, or the string 'keyframes'" },
+        "n_samples": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "presence_in_clip": {
+      "type": "object",
+      "required": ["source_s", "clip_s"],
+      "description": "The unpadded stretches where the target was in frame, cut to this clip; same count and order in both lists",
+      "properties": {
+        "source_s": { "$ref": "#/$defs/intervals" },
+        "clip_s": { "$ref": "#/$defs/intervals" }
+      }
+    },
+    "track_ids": { "type": "array", "items": { "type": "integer" }, "description": "Tracker ids of the target's box in this clip; empty when no tracker ran" },
+    "samples": {
+      "type": "array",
+      "description": "Every scored sample from copy_start_s to out_source_s, in time order",
+      "items": {
+        "type": "object",
+        "required": ["source_time", "clip_time", "box", "confidence", "track_id"],
+        "properties": {
+          "source_time": { "type": "number" },
+          "clip_time": { "type": "number", "minimum": 0 },
+          "box": { "oneOf": [{ "type": "null" }, { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 }], "description": "[x0, y0, x1, y1] normalised, the target's box at this sample, null when there was none (motion mode never has boxes). A box with a low confidence is a candidate that did not reach the enter threshold" },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1, "description": "The target's score at this sample (0 = not in frame). Its scale depends on the mode: see the top-level `score` (kind, enter, exit)" },
+          "track_id": { "type": ["integer", "null"] }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "intervals": { "type": "array", "items": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 } }
+  }
+}

@@ -1,0 +1,43 @@
+inframe
+Copyright 2026 the inframe authors
+
+This product is licensed under the Apache License, Version 2.0 (LICENSE), with one exception: web/src/browser/yuv.ts and web/src/browser/resample.ts are licensed under the GNU Lesser General Public License, version 2.1 or later (LICENSES/LGPL-2.1.txt), as set out below. It includes or is derived from the following third-party work.
+
+Pillow (HPND, the Historical Permission Notice and Disclaimer; the Pillow LICENSE file names it MIT-CMU)
+  The bicubic resize in web/src/browser/embed.ts and the bilinear squash in web/src/browser/resample.ts are ports of the two-pass
+  8-bit resampling in Pillow's libImaging/Resample.c.
+  Copyright (c) 1997-2011 by Secret Labs AB
+  Copyright (c) 1995-2011 by Fredrik Lundh and contributors
+  Copyright (c) 2010 by Jeffrey 'Alex' Clark and contributors
+  Permission to use, copy, modify and distribute this software and its documentation for any purpose and without fee is hereby
+  granted, provided that the above copyright notice appears in all copies, and that both that copyright notice and this permission
+  notice appear in supporting documentation, and that the name of Secret Labs AB or the author not be used in advertising or
+  publicity pertaining to distribution of the software without specific, written prior permission. The full text ships in
+  src/inframe/web/dist/THIRD_PARTY_LICENSES.txt.
+
+FFmpeg libswscale (LGPL-2.1-or-later)
+  The YUV to RGB stage in web/src/browser/yuv.ts (re-exported by web/src/browser/resample.ts) imitates the arithmetic of libswscale as PyAV runs it. It is written from that
+  arithmetic, not from the FFmpeg source, but its filter construction (makeFilter) follows the expressions and tap count of swscale's
+  initFilter, so it is treated as derived from an LGPL-2.1-or-later work. Those two files are therefore licensed LGPL-2.1-or-later (SPDX-License-Identifier
+  in each header), not Apache-2.0; the full text is in LICENSES/LGPL-2.1.txt and also ships with the page (web/src/notices.txt, then
+  src/inframe/web/dist/THIRD_PARTY_LICENSES.txt). The derived code stays in those two files, which are published as source here and whose complete source also
+  ships with the built page and the wheel (src/inframe/web/dist/yuv.ts and src/inframe/web/dist/resample.ts, LGPL-2.1 section 4), so a user can read, modify and replace it
+  and rebuild the page (npm --prefix web run build). The built page bundles them into minified JavaScript together with
+  the Apache-2.0 code, which is why package.json says "Apache-2.0 AND LGPL-2.1-or-later".
+
+Bundled songs (CC BY 3.0)
+  src/inframe/music_library/ holds songs that are not part of inframe's Apache-2.0 code. Each keeps its own license, CC BY 3.0
+  (https://creativecommons.org/licenses/by/3.0/), which asks for attribution and a note of changes; the title, author, source, license
+  and changes of every song are in src/inframe/music_library/CREDITS.md (also in library.json, with a SHA-256 of each file), which ships in the wheel and is listed
+  as a license file. This is why pyproject.toml says "Apache-2.0 AND LGPL-2.1-or-later AND CC-BY-3.0". The wheel metadata and the credits
+  are written from the Openverse and Jamendo records of the songs; the licenses were not checked with the artists [unverified].
+
+Python dependencies
+  PyAV wheels bundle FFmpeg libraries under the LGPL; they are linked dynamically and not modified. The optional `tracking` extra
+  pulls in a package that bundles a GPL-built FFmpeg on macOS; it is not part of the default install. The `music` extra and the dev
+  group pull in python-soxr and a libsndfile build (LGPL-2.1). See the Licenses section of README.md.
+
+Other notices
+  Licenses and notices of the libraries shipped inside the built web page: src/inframe/web/dist/THIRD_PARTY_LICENSES.txt.
+  Notices for the model files and the WebAssembly runtime hosted for the browser engine: tools/hf_files/NOTICE and
+  tools/hf_files/THIRD_PARTY_NOTICES.

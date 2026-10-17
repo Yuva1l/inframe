@@ -1,0 +1,69 @@
+[project]
+name = "inframe"
+version = "0.1.0"
+description = "Video + target -> clips of the stretches where the target is in frame."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0 AND LGPL-2.1-or-later AND CC-BY-3.0"  # CC-BY-3.0: the bundled songs (src/inframe/music_library/, credits in CREDITS.md)
+license-files = ["LICENSE", "NOTICE", "LICENSES/*", "src/inframe/music_library/CREDITS.md"]
+dependencies = [
+    "av>=14",            # PyAV, BSD-3 (wheels bundle FFmpeg LGPL)
+    "numpy>=2",          # BSD-3
+    "pillow>=10",        # HPND, resize for the detector input
+    "coremltools>=8",    # BSD-3, runs the exported RF-DETR packages
+    "scipy>=1.14",       # BSD-3, motion mode (image filters, FFT)
+    "mcp>=2.3.0",
+    "opentimelineio>=0.18.1",        # Apache-2.0, edit lists
+    "otio-fcpx-xml-adapter>=1.0.0",  # Apache-2.0, reads FCPXML back for the check
+    "otio-fcp-adapter>=1.0.0",       # Apache-2.0, FCP7 XML (Premiere)
+    "otio-cmx3600-adapter>=1.0.0",   # Apache-2.0, EDL
+    "otio-kdenlive-adapter>=0.0.3",  # MIT (KDE Community), Kdenlive; deprecated upstream, see README
+]
+
+[project.optional-dependencies]
+# Fallback only when CoreML fails (needs the rfdetr checkpoints, Apache-2.0).
+torch = ["rfdetr>=1.1", "torch"]
+# Opt-in: read the Photos library (T3a). osxphotos is MIT, pinned; macOS only (pulls pyobjc).
+photos = ["osxphotos==0.77.2; sys_platform == 'darwin'"]
+# Opt-in: a dependency of trackers bundles a GPL-built FFmpeg on macOS (see README, Licenses).
+tracking = [
+    "trackers>=2.6,<3",
+]
+# Opt-in: the DINOv2-S and SigLIP 2 embedders for photo mode and identity (T1c). torch is BSD-3, transformers and
+# huggingface-hub are Apache-2.0; both models are Apache-2.0. They run in a child process (embed_worker.py).
+identity = [
+    "torch>=2.4",
+    "transformers>=4.50",
+]
+# Beat tracking for `export --music --beat-sync`. librosa is ISC; it needs python-soxr (LGPL-2.1+, see README, Licenses).
+music = [
+    "librosa>=0.11",
+]
+
+[project.scripts]
+inframe = "inframe.cli:main"
+inframe-mcp = "inframe.mcp_server:main"
+
+[dependency-groups]
+browser = [
+    "onnxruntime>=1.20",   # MIT, the CPU reference the browser models are compared with (tests/browser)
+    "playwright>=1.49",    # Apache-2.0, drives the installed Chrome (no browser is downloaded); tests/browser, INFRAME_BROWSER_TESTS=1
+]
+dev = [
+    "pytest>=8",
+    "jsonschema>=4",  # MIT, validates the sidecars against docs/sidecar.schema.json (tests, tools/validate_sidecars.py)
+    "osxphotos==0.77.2; sys_platform == 'darwin'",
+    "librosa>=0.11",     # the beat-sync tests
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/inframe"]
+# the bundled songs (audio, library.json, CREDITS.md) ship in the wheel even if a global ignore file mentions audio
+artifacts = ["src/inframe/music_library/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
